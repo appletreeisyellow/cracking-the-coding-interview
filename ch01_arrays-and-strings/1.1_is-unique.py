@@ -34,12 +34,12 @@ class Test(unittest.TestCase):
     is_unique_set,
   ]
 
-  def test_is_unique(self):
+  def test(self):
     for text, expected in self.test_cases:
-      for is_unique_chars in self.test_functions:
+      for test_func in self.test_functions:
         assert (
-            is_unique_chars(text) == expected
-        ), "{is_unique_chars.__name__} failed for value: {text}"
+          test_func(text) == expected
+        ), "{test_func.__name__} failed for value: {text}"
 
 
 if __name__ == "__main__":
