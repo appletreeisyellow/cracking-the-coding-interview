@@ -1,1 +1,1 @@
-#JavaScript solutions to *Cracking the Coding Interview, 6th Edition*
+#Python solutions to *Cracking the Coding Interview, 6th Edition*
