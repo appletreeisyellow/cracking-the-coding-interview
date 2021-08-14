@@ -4,23 +4,27 @@ def string_compression(string):
   # use one var to count the current letter
   cur_char = ""
   count = 0
-  compressed = ""
+  compressed = [] # key! not using "" but [] to avoid long string run time
   for c in string:
     if c != cur_char:
       if cur_char != "": # non-first letter
-        compressed += cur_char + str(count)
+        compressed.append(cur_char + str(count))
       cur_char = c
       count = 1
     else:
       count += 1
   # put the last letter in the compression
-  compressed += cur_char + str(count)
+  compressed.append(cur_char + str(count))
   
+  # convert the list into a string
+  compressed_string = "".join([phrase for phrase in compressed])
+
   # if the compressed string is not smaller
   # return the origin string
-  if len(compressed) >= len(string):
+  if len(compressed_string) >= len(string):
     return string
-  return compressed
+  
+  return compressed_string
 
 class Test(unittest.TestCase):
   test_cases = [
