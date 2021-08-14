@@ -14,8 +14,8 @@ def is_one_away(str1, str2):
 
 def is_one_char_replaceable(str1, str2):
   found_diff = False
-  for i in range(len(str1)):
-    if str1[i] != str2[i]:
+  for c1, c2 in zip(str1, str2):
+    if c1 != c2:
       if found_diff:
         return False
       found_diff = True
@@ -25,10 +25,12 @@ def is_one_char_insertable(str1, str2):
   # assume length of str1 < str2
   index1 = 0
   index2 = 0
+  found_diff = False
   while index1 < len(str1) and index2 < len(str2):
     if str1[index1] != str2[index2]:
-      if index1 != index2:
+      if found_diff:
         return False
+      found_diff = True
       index2 += 1
     else:
       index1 += 1
