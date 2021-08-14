@@ -15,16 +15,10 @@ def string_compression(string):
       count += 1
   # put the last letter in the compression
   compressed.append(cur_char + str(count))
-  
-  # convert the list into a string
-  compressed_string = "".join([phrase for phrase in compressed])
 
   # if the compressed string is not smaller
   # return the origin string
-  if len(compressed_string) >= len(string):
-    return string
-  
-  return compressed_string
+  return min(string, "".join(compressed), key=len)
 
 class Test(unittest.TestCase):
   test_cases = [
