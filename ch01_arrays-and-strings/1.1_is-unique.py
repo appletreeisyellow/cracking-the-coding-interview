@@ -1,5 +1,15 @@
 import unittest
 
+"""
+
+1.1 Is Unique
+
+  Implement an algorithm to determine if a string has
+  all unique characters. What if you cannot use additional
+  data structures?
+  
+"""
+
 # time O(n), space O(1)
 def is_unique(str):
   # assume the characters are ASCII string -> 128 char
