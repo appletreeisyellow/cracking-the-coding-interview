@@ -11,7 +11,7 @@ class LinkedListNode:
 
 
 class LinkedList:
-  def __init__:(self, values=None):
+  def __init__(self, values=None):
     self.head = None
     self.tail = None
     if values is not None:
