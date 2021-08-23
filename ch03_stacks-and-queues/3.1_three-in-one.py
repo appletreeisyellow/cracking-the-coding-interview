@@ -49,16 +49,20 @@ class FixedMultiStack:
 
 
 class MultiStackError(Exception):
-  """# operation error"""
+  # operation error"
+  pass
 
 class StackFullError(MultiStackError):
-  """# the stack is full"""
+  # the stack is full
+  pass
 
 class StackEmptyError(MultiStackError):
-  """# the stack is empty"""
+  # the stack is empty
+  pass
 
 class StackDoesNotExistError(ValueError):
-  """# the stack does not exist"""
+  # the stack does not exist
+  pass
 
 def test_multistack():
   number_of_stacks = 3
