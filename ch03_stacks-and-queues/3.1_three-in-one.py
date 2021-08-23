@@ -1,5 +1,12 @@
 import pytest
 
+"""
+
+3.1 Three in One:
+
+  Describe how you could use a single array to implement three stacks.
+  
+"""
 
 class FixedMultiStack:
   def __init__(self, stack_size, number_of_stacks):
