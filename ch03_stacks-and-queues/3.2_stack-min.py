@@ -1,5 +1,15 @@
 from stack import Stack
 
+"""
+
+3.2 Stack Min
+
+  How would you design a stack which, in addition to push and pop, has
+  a function min which returns the minimum element? Push, pop and min
+  should all operate in O(1) time.
+  
+"""
+
 class StackWithMin(Stack):
   def __init__(self):
     super().__init__()
