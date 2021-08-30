@@ -1,6 +1,6 @@
 import unittest
 from collections import deque
-from ch02_linked-lists.linked_list import LinkedList
+from ch02_linked_lists.linked_list import LinkedList
 
 
 """
@@ -19,11 +19,21 @@ class BinaryNode:
     self.left = left
     self.right = right
 
-def create_list_by_depth_recursive(root):
-  # recursive, pass down which level it is
-  # put each linked_list in a table
-  # merge the table for each level return from below
-  pass
+def create_list_by_depth_recursive(root, lists=[], level=0):
+  # DFS, recursive
+  if root is None:
+    return
+
+  linked_list = None
+  if len(lists) == level:
+    linked_list = LinkedList()
+    lists.append(linked_list)
+  else:
+    linked_list = lists[level]
+
+  linked_list.add(root.value)
+  create_list_by_depth_recursive(root.left, lists, level + 1)
+  create_list_by_depth_recursive(root.right, lists, level + 1)
   
 def create_list_by_depth_bfs(root):
   # BFS
@@ -33,12 +43,11 @@ def create_list_by_depth_bfs(root):
   while queue:
     node, level = queue.popleft()
     if level not in levels:
-      # first node in level
+      # no linked list before
       levels[level] = LinkedList()
-    # node already exist
-    levels[level].add(node)
 
-    # push onto queue
+    levels[level].add(node.value)
+
     if node.left:
       queue.append((node.left, level + 1))
     if node.right:
@@ -46,9 +55,10 @@ def create_list_by_depth_bfs(root):
   return levels
 
 
+
 class Test(unittest.TestCase):
   test_functions = [
-    #create_list_by_depth_recursive,
+    create_list_by_depth_recursive,
     create_list_by_depth_bfs,
   ]
 
@@ -66,9 +76,15 @@ class Test(unittest.TestCase):
     root.right.left = BinaryNode(5)
     root.right.right = BinaryNode(6)
 
-    for test_func in self.test_functions:
-      levels = test_func(root)
-      print(levels)
+    
+    levels = create_list_by_depth_bfs(root)
+    for key in levels:
+      print(levels[key].values())
+
+    lists = []
+    create_list_by_depth_recursive(root, lists, 0)
+    for level in lists:
+      print(level.values())
        
 if __name__ == "__main__":
   unittest.main()
