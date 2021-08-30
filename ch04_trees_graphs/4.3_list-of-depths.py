@@ -1,5 +1,6 @@
 import unittest
 from collections import deque
+from binary_tree import BinaryNode
 from ch02_linked_lists.linked_list import LinkedList
 
 
@@ -12,12 +13,6 @@ from ch02_linked_lists.linked_list import LinkedList
   depth D, you'll have D linked lists).
 
 """
-
-class BinaryNode:
-  def __init__(self, value, left=None, right=None):
-    self.value = value
-    self.left = left
-    self.right = right
 
 def create_list_by_depth_recursive(root, lists=[], level=0):
   # DFS, recursive
