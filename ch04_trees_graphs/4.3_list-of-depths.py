@@ -43,17 +43,14 @@ def create_list_by_depth_bfs(root):
   while queue:
     node, level = queue.popleft()
     if level not in levels:
-      # no linked list before
+      # no linked list yet
       levels[level] = LinkedList()
-
     levels[level].add(node.value)
-
     if node.left:
       queue.append((node.left, level + 1))
     if node.right:
       queue.append((node.right, level + 1))
   return levels
-
 
 
 class Test(unittest.TestCase):
@@ -76,15 +73,18 @@ class Test(unittest.TestCase):
     root.right.left = BinaryNode(5)
     root.right.right = BinaryNode(6)
 
-    
+    lists = []
+    create_list_by_depth_recursive(root, lists, 0)
+    print("DFS")
+    for level in lists:
+      print(level.values())
+
     levels = create_list_by_depth_bfs(root)
+    print("BFS")
     for key in levels:
       print(levels[key].values())
 
-    lists = []
-    create_list_by_depth_recursive(root, lists, 0)
-    for level in lists:
-      print(level.values())
+    
        
 if __name__ == "__main__":
   unittest.main()
