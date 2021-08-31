@@ -26,6 +26,7 @@ def is_balanced_bfs(root):
   while queue:
     node, curr_depth = queue.popleft()
     if node.left is None and node.right is None:
+      # at leaf node
       if curr_depth > max_depth:
         max_depth = curr_depth
       if curr_depth < min_depth:
@@ -37,9 +38,7 @@ def is_balanced_bfs(root):
       if node.right and node.right not in visited:
         queue.append((node.right, curr_depth + 1))
         visited.append(node.right)
-        
   return max_depth - min_depth < 2
-
 
 # find the max depth and min depth
 # the two depth should be the same
@@ -146,7 +145,11 @@ test_functions = [
 def test_is_balanced():
   for tree_gen, expected in test_cases:
     for test_func in test_functions:
-      assert test_func(tree_gen()) == expected
+      try:
+        assert test_func(tree_gen()) == expected, "Failed"
+      except AssertionError as e:
+        e.args += (test_func.__name__, tree_gen.__name__, "should be " + str(expected))
+        raise
 
 if __name__ == "__main__":
   test_is_balanced()
