@@ -22,7 +22,6 @@ def is_balanced_bfs(root):
   max_depth = -10 ** 100
   queue = deque()
   queue.append((root, 0))
-  visited = [root]
   while queue:
     node, curr_depth = queue.popleft()
     if node.left is None and node.right is None:
@@ -32,12 +31,10 @@ def is_balanced_bfs(root):
       if curr_depth < min_depth:
         min_depth = curr_depth
     else:
-      if node.left and node.left not in visited:
+      if node.left:
         queue.append((node.left, curr_depth + 1))
-        visited.append(node.left)
-      if node.right and node.right not in visited:
+      if node.right:
         queue.append((node.right, curr_depth + 1))
-        visited.append(node.right)
   return max_depth - min_depth < 2
 
 # find the max depth and min depth
