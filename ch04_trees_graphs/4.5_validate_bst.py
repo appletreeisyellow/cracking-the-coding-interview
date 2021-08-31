@@ -13,39 +13,36 @@ from binary_tree import BinaryNode
 
 # for a BST, all the nodes on the left should be less than
 # the nodes on the right
+# assume no duplicate values?
 
-def is_validate_bst_dfs(root):
+# pass down min value and max value
+def is_validate_bst_dfs(root, min_value=None, max_value=None):
   if root is None:
     return True
 
-  if root.left:
-    if root.left.value > root.value:
-      return False
-      
-  if root.right:
-    if root.right.value < root.value:
-      return False
+  if (min_value and root.value <= min_value) or \
+    (max_value and root.value > max_value):
+    return False
 
-  return is_validate_bst_dfs(root.left) and is_validate_bst_dfs(root.right)
+  if (not is_validate_bst_dfs(root.left, min_value, root.value)) or \
+    (not is_validate_bst_dfs(root.right, root.value, max_value)):
+    return False
+  return True
+
   
 def is_validate_bst_bfs(root):
-  if root is None:
-    return True
-
   queue = deque()
-  queue.append(root)
+  queue.append((root, None, None)) # node, min_value, max_value
   while queue:
-    node = queue.popleft()
+    node, min_value, max_value = queue.popleft()
+    if (min_value and node.value <= min_value) or \
+      (max_value and node.value > max_value):
+      return False
     if node.left:
-      if node.left.value < node.value:
-        queue.append(node.left)
-      else:
-        return False
+      queue.append((node.left, min_value, node.value))
     if node.right:
-      if node.right.value > node.value:
-        queue.append(node.right)
-      else:
-        return False
+      queue.append((node.right, node.value, max_value))
+
   return True
 
 
@@ -53,16 +50,10 @@ def _gen_test_tree_1():
   """
   Is BST
          5
-      1    7
-    0  3  6  9
+      5
   """
   tree = BinaryNode(5)
-  tree.left = BinaryNode(1)
-  tree.left.left = BinaryNode(0)
-  tree.left.right = BinaryNode(3)
-  tree.right = BinaryNode(7)
-  tree.right.left = BinaryNode(6)
-  tree.right.right = BinaryNode(9)
+  tree.left = BinaryNode(5)
   return tree
 
 def _gen_test_tree_2():
@@ -105,17 +96,38 @@ def _gen_test_tree_4():
   Not BST
           5
       3       9
-    2   4    6  8
-     0         
+    2   10    6  8       
   """
   tree = BinaryNode(5)
   tree.left = BinaryNode(3)
   tree.left.left = BinaryNode(2)
-  tree.left.left.right = BinaryNode(0)
-  tree.left.right = BinaryNode(4)
+  tree.left.right = BinaryNode(10)
   tree.right = BinaryNode(9)
   tree.right.left = BinaryNode(6)
   tree.right.right = BinaryNode(8)
+  return tree
+
+def _gen_test_tree_5():
+  """
+  Not BST
+        30
+           30
+  """
+  tree = BinaryNode(30)
+  tree.right = BinaryNode(30)
+  return tree
+
+def _gen_test_tree_6():
+  """
+  Not BST
+        20
+    10      30
+      25
+  """
+  tree = BinaryNode(20)
+  tree.left = BinaryNode(10)
+  tree.right = BinaryNode(30)
+  tree.left.right = BinaryNode(25)
   return tree
 
 test_cases = [
@@ -124,6 +136,8 @@ test_cases = [
   (_gen_test_tree_2, True),
   (_gen_test_tree_3, False),
   (_gen_test_tree_4, False),
+  (_gen_test_tree_5, False),
+  (_gen_test_tree_6, False),
 ]
 
 test_functions = [
