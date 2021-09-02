@@ -9,6 +9,9 @@
 
 """
 
+# the problem of this one is
+# it calculate previous steps again and again
+# which we already calculated
 def triple_step(n):
   if n < 0:
     return 0
