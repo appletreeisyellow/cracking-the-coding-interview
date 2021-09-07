@@ -62,7 +62,7 @@ class Test(unittest.TestCase):
           result = test_func(a, b)
           assert (result == expected), "Failed!"
         except AssertionError as e:
-          e.args += (test_func.__name__, values, "should be " + \
+          e.args += (test_func.__name__, a, b, "should be " + \
             str(expected) + ", but got " + str(result))
           raise
 
