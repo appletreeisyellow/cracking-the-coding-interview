@@ -44,6 +44,7 @@ def has_route_dfs_stack(graph, start, end):
   visited = set()
   stack = deque()
   stack.append(start)
+  visited.add(start)
   while stack:
     node = stack.pop()
     for next_node in graph[node]:
@@ -52,7 +53,7 @@ def has_route_dfs_stack(graph, start, end):
           return True
         else:
           stack.append(next_node)
-    visited.add(node)
+          visited.add(next_node)
   return False
 
 
@@ -62,6 +63,7 @@ def has_route_bfs(graph, start, end):
   visited = set()
   queue = deque()
   queue.append(start)
+  visited.add(start)
   while queue:
     node = queue.popleft()
     for adjacent in graph[node]:
@@ -70,7 +72,7 @@ def has_route_bfs(graph, start, end):
           return True
         else:
           queue.append(adjacent)
-    visited.add(node)
+          visited.add(adjacent)
   return False
 
 
